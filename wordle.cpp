@@ -75,13 +75,17 @@ int main()
     {
         std::cout << "\nEnter your guess: ";
         hint = {};    // reset the hint for the next guess
-        for (int counter = 0; counter < secret_code_length; counter = counter + 1)
+        int counter = 0;
+       for (int counter = 0; counter < secret_code_length; counter = counter + 1) // THIS LOOP IS BROKEN
         {
             int input;
             std::cin >> input;
-            user_guess.push_back(input);    // can also do append(guess, input);
+            user_guess.push_back(input);    
+            std::cout << "still in the loop"; // AFTER THE 4TH, TEST STOPS PRINTING --> LOOP HAS ENDED BUT IT STILL ASKS FOR INPUT 
+            // the loop ends, but still prompts user inputs
         }
-
+        
+        std::cout << "got out of the loop"; // added so I know if we have exited the loop
         hint = getHint(secret_code, user_guess);
         display(hint);
         num_guesses = num_guesses + 1;
