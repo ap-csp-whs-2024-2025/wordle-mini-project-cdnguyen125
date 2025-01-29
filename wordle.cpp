@@ -13,11 +13,11 @@
 
 std::vector<int> createSecret() {
     srand(time(0)); 
-    int random_num = rand() % 10;
     int counter = 0;
     std::vector<int> secret = {};
     while (counter < 4)
     {
+        int random_num = rand() % 10;
         secret.push_back(random_num);
         counter = counter + 1;
     }
@@ -25,13 +25,26 @@ std::vector<int> createSecret() {
 }
 
 std::vector<std::string> getHint(std::vector<int> secret, std::vector<int> guess) {
-    int secretIndex = 1;
-    int guessIndex = 1;
+    int secretIndex = 0;
+    int guessIndex = 0;
+    std::vector<std::string> hint = {};
     while (secret != guess)
     {
-        
+        while (guessIndex < 4)
+        {
+            if (guess[guessIndex] == secret[secretIndex])
+            {
+                hint.push_back("O");
+            }
+            else
+            {
+                hint.push_back("X");
+            }
+            secretIndex = secretIndex + 1;
+            guessIndex = guessIndex + 1;
+        }
     }
-    return {"X", "X", "X", "X"};    // replace this with your code
+    return {hint};    // replace this with your code
 }
 
 bool winGame(std::vector<int> secret, std::vector<int> guess) {
@@ -56,6 +69,7 @@ int main()
     int num_guesses = 0;
 
     std::cout << "Welcome to Number Wordle!\n";
+    display(secret_code);
     
     while (!winGame(secret_code, user_guess))    // while you have not won the game yet
     {
@@ -65,7 +79,7 @@ int main()
         {
             int input;
             std::cin >> input;
-            guess.push_back(input);    // can also do append(guess, input);
+            user_guess.push_back(input);    // can also do append(guess, input);
         }
 
         hint = getHint(secret_code, user_guess);
