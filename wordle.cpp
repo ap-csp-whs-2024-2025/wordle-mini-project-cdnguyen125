@@ -28,8 +28,6 @@ std::vector<std::string> getHint(std::vector<int> secret, std::vector<int> guess
     int secretIndex = 0;
     int guessIndex = 0;
     std::vector<std::string> hint = {};
-    while (secret != guess)
-    {
         while (guessIndex < 4)
         {
             if (guess[guessIndex] == secret[secretIndex])
@@ -42,13 +40,14 @@ std::vector<std::string> getHint(std::vector<int> secret, std::vector<int> guess
             }
             secretIndex = secretIndex + 1;
             guessIndex = guessIndex + 1;
+        
+        // replace this with your code
         }
-    }
-    return {hint};    // replace this with your code
+        return {hint};
 }
 
-bool winGame(std::vector<int> secret, std::vector<int> guess) {
-
+bool winGame(std::vector<int> secret, std::vector<int> guess) 
+{
     
     if (guess == secret)
     {
@@ -60,7 +59,6 @@ bool winGame(std::vector<int> secret, std::vector<int> guess) {
 int main()
 {
      srand(time(0)); 
-     int random_num = rand() % 10;
     
     
     std::vector<int> secret_code = createSecret();
@@ -75,11 +73,10 @@ int main()
     
     while (!winGame(secret_code, user_guess))    // while you have not won the game yet
     {
-        std::cout << "\nEnter your guess: ";
-        user_guess.clear();
+        std::cout << "\nEnter your guess: (0 - 9 --> 4 inputs)" << std::endl;
         hint = {};    // reset the hint for the next guess
         int counter = 0;
-        std::cout << "about to enter while loop" << std::endl;
+        user_guess.clear();
         while (counter < secret_code_length)
         {
          int input;
@@ -90,9 +87,6 @@ int main()
         }
         
         display(user_guess);
-        std::cout << "Test";
-        std::cout << "Exited input loop" << std::endl;
-        
        
         hint = getHint(secret_code, user_guess);
         display(hint);
